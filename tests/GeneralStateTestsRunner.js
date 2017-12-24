@@ -112,6 +112,6 @@ function runTestCase (options, testData, t, cb) {
 module.exports = function runStateTest (options, testData, t, cb) {
   const testCases = parseTestCases(options.forkConfig, testData, options.data, options.gasLimit, options.value)
   async.eachSeries(testCases,
-                  (testCase, done) => runTestCase(options, testCase, t, done),
-                  cb)
+    (testCase, done) => runTestCase(options, testCase, t, done),
+    cb)
 }

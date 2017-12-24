@@ -1,6 +1,8 @@
 const Buffer = require('safe-buffer').Buffer // use for Node.js <4.5.0
 const async = require('async')
-const Trie = require('merkle-patricia-tree/secure')
+// const Trie = require('merkle-patricia-tree/secure-interface')
+const Trie = require('../../lib/recastTrie.js')
+const TrieNode = require('merkle-patricia-tree/trieNode')
 const Block = require('ethereumjs-block')
 const Blockchain = require('ethereumjs-blockchain')
 const BlockHeader = require('ethereumjs-block/header.js')
@@ -11,11 +13,100 @@ const utils = require('ethereumjs-util')
 const BN = utils.BN
 const rlp = utils.rlp
 const testData = require('./test-data')
+const shorter = require('shorter')
+
+require('../../lib/trieExtensions')
+
+const ethUtil = require('ethereumjs-util')
+
+
 // inMemory blockchainDB
 var blockchainDB = new Level('', { db: require('memdown') })
 
 var state = new Trie()
 
+//&&&&&&&&&&&&&&&&&&&************((((((((())))))))))))))))************&&&&&&
+async.series([
+  function (next) {
+    state.putRecast("regular_opt1", "go", function(err) {
+      if (err !== null) {
+        console.log("put regular_opt1 :: (err) :: " + err)
+      } else {
+        console.log("put regular_opt1 :: complete")
+      }
+      next()
+    })
+  },
+  function (next) {
+    state.putRecast("sidentity_option", "sidentity_yo", function(err) {
+      if (err !== null) {
+        console.log("put sidentity_opt1 :: (err) :: " + err)
+      } else {
+        console.log("put sidentity_opt1 :: complete")
+      }
+      next()
+    })
+  },
+  function (next) {
+    state.putRecast("sidentity_opt1on", "sidentity_hey", function(err) {
+      if (err !== null) {
+        console.log("put sidentity_opt2 :: (err) :: " + err)
+      } else {
+        console.log("put sidentity_opt2 :: complete")
+      }
+      next()
+    })
+  },
+  function (next) {
+    var kvDb = new Array();
+
+    state._findValueNodes(function (nodeRef, node, key, nextcall) {
+      state.filterNodeValuesForPrefix("sidentity_", nodeRef, node, key, nextcall, function(foundPrefix, nodeRef, node, key, value, nextcall) {
+        if (foundPrefix) {
+          console.log("found prefixed :: " + foundPrefix + " :: leaf node value :: " + node.value)
+          kvDb.push({
+            // nodeRef: nodeRef.nibblesToBuffer(key).toString(),
+            key: TrieNode.nibblesToBuffer(node.getKey()).toString(),
+            prefix: foundPrefix,
+            // key: node.getKey().toString(),
+            value: value
+          })
+        }
+
+        nextcall()
+      })
+    }, function () {
+      // close stream
+      console.log("kvDb :: " + JSON.stringify(kvDb, null, 4))
+      kvDb.push(null)
+      next()
+    })
+  },
+  function (next) {
+    state.getRecast("sidentity_option", function(err, value) {
+      if (err !== null) {
+        console.log("sidentity_opt1 get :: (err) :: " + err)
+      } else {
+        console.log("sidentity_opt1 get :: " + value)
+      }
+      next()
+    })
+  },
+  function (next) {
+    state.getRecast("sidentity_opt1on", function(err, value) {
+      if (err !== null) {
+        console.log("sidentity_opt2 get :: (err) :: " + err)
+      } else {
+        console.log("sidentity_opt2 get :: " + value)
+      }
+      next()
+    })
+  },
+])
+
+
+//&&&&&&&&&&&&&&&&&&&************((((((((())))))))))))))))************&&&&&&
+return
 var blockchain = new Blockchain(blockchainDB)
 blockchain.ethash.cacheDB = new Level('./.cachedb')
 
@@ -44,8 +135,8 @@ async.series([
   // create and add genesis block
   function (next) {
     genesisBlock.header = new BlockHeader(
-                            testData.genesisBlockHeader
-                          )
+      testData.genesisBlockHeader
+    )
     blockchain.putGenesis(genesisBlock, next)
   },
 
@@ -56,7 +147,7 @@ async.series([
     function eachBlock (raw, cb) {
       try {
         var block = new Block(
-            Buffer.from(raw.rlp.slice(2), 'hex'))
+          Buffer.from(raw.rlp.slice(2), 'hex'))
 
         // forces the block into thinking they are homestead
         block.header.isHomestead = function () {

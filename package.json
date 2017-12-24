@@ -14,7 +14,8 @@
     "functional-red-black-tree": "^1.0.1",
     "merkle-patricia-tree": "^2.1.2",
     "rustbn.js": "~0.1.1",
-    "safe-buffer": "^5.1.1"
+    "safe-buffer": "^5.1.1",
+    "shorter": "^0.2.1"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.0",
