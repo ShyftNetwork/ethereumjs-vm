@@ -26,87 +26,88 @@ var blockchainDB = new Level('', { db: require('memdown') })
 var state = new Trie()
 
 //&&&&&&&&&&&&&&&&&&&************((((((((())))))))))))))))************&&&&&&
-async.series([
-  function (next) {
-    state.putRecast("regular_opt1", "go", function(err) {
-      if (err !== null) {
-        console.log("put regular_opt1 :: (err) :: " + err)
-      } else {
-        console.log("put regular_opt1 :: complete")
-      }
-      next()
-    })
-  },
-  function (next) {
-    state.putRecast("sidentity_option", "sidentity_yo", function(err) {
-      if (err !== null) {
-        console.log("put sidentity_opt1 :: (err) :: " + err)
-      } else {
-        console.log("put sidentity_opt1 :: complete")
-      }
-      next()
-    })
-  },
-  function (next) {
-    state.putRecast("sidentity_opt1on", "sidentity_hey", function(err) {
-      if (err !== null) {
-        console.log("put sidentity_opt2 :: (err) :: " + err)
-      } else {
-        console.log("put sidentity_opt2 :: complete")
-      }
-      next()
-    })
-  },
-  function (next) {
-    var kvDb = new Array();
+// async.series([
+  // function (next) {
+  //   state.putRecast("regular_opt1", "go", function(err) {
+  //     if (err !== null) {
+  //       console.log("put regular_opt1 :: (err) :: " + err)
+  //     } else {
+  //       console.log("put regular_opt1 :: complete :: go")
+  //     }
+  //     next()
+  //   })
+  // },
+  // function (next) {
+  //   state.putRecast("sidentity_option", "yo", function(err) {
+  //     if (err !== null) {
+  //       console.log("put sidentity_opt1 :: (err) :: " + err)
+  //     } else {
+  //       console.log("put sidentity_opt1 :: complete :: yo")
+  //     }
+  //     next()
+  //   })
+  // },
+  // function (next) {
+  //   state.putRecast("sidentity_opt1on", "hey", function(err) {
+  //     if (err !== null) {
+  //       console.log("put sidentity_opt2 :: (err) :: " + err)
+  //     } else {
+  //       console.log("put sidentity_opt2 :: complete :: hey")
+  //     }
+  //     next()
+  //   })
+  // },
+//   function (next) {
+//     var kvDb = new Array();
+//
+//     state._findValueNodes(function (nodeRef, node, key, nextcall) {
+//       state.filterNodeValuesForPrefix("sidentity_", nodeRef, node, key, nextcall, function(foundPrefix, nodeRef, node, key, value, nextcall) {
+//         if (foundPrefix) {
+//           console.log("found prefixed :: " + foundPrefix + " :: leaf node value :: " + node.value)
+//           kvDb.push({
+//             // nodeRef: nodeRef.nibblesToBuffer(key).toString(),
+//             key: TrieNode.nibblesToBuffer(node.getKey()).toString(),
+//             prefix: foundPrefix,
+//             // key: node.getKey().toString(),
+//             value: value
+//           })
+//         }
+//
+//         nextcall()
+//       })
+//     }, function () {
+//       // close stream
+//       console.log("kvDb :: " + JSON.stringify(kvDb, null, 4))
+//       kvDb.push(null)
+//       next()
+//     })
+//   },
+//   function (next) {
+//     state.getRecast("sidentity_option", function(err, value) {
+//       if (err !== null) {
+//         console.log("sidentity_opt1 get :: (err) :: " + err)
+//       } else {
+//         console.log("sidentity_opt1 get :: " + value)
+//       }
+//       next()
+//     })
+//   },
+//   function (next) {
+//     state.getRecast("sidentity_opt1on", function(err, value) {
+//       if (err !== null) {
+//         console.log("sidentity_opt2 get :: (err) :: " + err)
+//       } else {
+//         console.log("sidentity_opt2 get :: " + value)
+//       }
+//       next()
+//     })
+//   },
+// ])
 
-    state._findValueNodes(function (nodeRef, node, key, nextcall) {
-      state.filterNodeValuesForPrefix("sidentity_", nodeRef, node, key, nextcall, function(foundPrefix, nodeRef, node, key, value, nextcall) {
-        if (foundPrefix) {
-          console.log("found prefixed :: " + foundPrefix + " :: leaf node value :: " + node.value)
-          kvDb.push({
-            // nodeRef: nodeRef.nibblesToBuffer(key).toString(),
-            key: TrieNode.nibblesToBuffer(node.getKey()).toString(),
-            prefix: foundPrefix,
-            // key: node.getKey().toString(),
-            value: value
-          })
-        }
 
-        nextcall()
-      })
-    }, function () {
-      // close stream
-      console.log("kvDb :: " + JSON.stringify(kvDb, null, 4))
-      kvDb.push(null)
-      next()
-    })
-  },
-  function (next) {
-    state.getRecast("sidentity_option", function(err, value) {
-      if (err !== null) {
-        console.log("sidentity_opt1 get :: (err) :: " + err)
-      } else {
-        console.log("sidentity_opt1 get :: " + value)
-      }
-      next()
-    })
-  },
-  function (next) {
-    state.getRecast("sidentity_opt1on", function(err, value) {
-      if (err !== null) {
-        console.log("sidentity_opt2 get :: (err) :: " + err)
-      } else {
-        console.log("sidentity_opt2 get :: " + value)
-      }
-      next()
-    })
-  },
-])
+// &&&&&&&&&&&&&&&&&&&************((((((((())))))))))))))))************&&&&&&
+// return
 
-
-//&&&&&&&&&&&&&&&&&&&************((((((((())))))))))))))))************&&&&&&
-return
 var blockchain = new Blockchain(blockchainDB)
 blockchain.ethash.cacheDB = new Level('./.cachedb')
 
@@ -196,6 +197,9 @@ function setupPreConditions (state, testData, done) {
     account.nonce = format(acctData.nonce)
     account.balance = format(acctData.balance)
 
+    console.log(" key :: " + key + " :: data :: " + JSON.stringify(acctData) + " :: " + JSON.stringify(account, null, 4))
+
+
     var codeBuf = Buffer.from(acctData.code.slice(2), 'hex')
     var storageTrie = state.copy()
     storageTrie.root = null
@@ -209,6 +213,16 @@ function setupPreConditions (state, testData, done) {
           var val = acctData.storage[key]
           val = rlp.encode(Buffer.from(val.slice(2), 'hex'))
           key = utils.setLength(Buffer.from(key.slice(2), 'hex'), 32)
+
+          // @note: recast component
+            storageTrie.putRecast("sidentity_option", "yo", function(err) {
+              if (err !== null) {
+                console.log("put sidentity_opt1 :: (err) :: " + err)
+              } else {
+                console.log("put sidentity_opt1 :: complete :: yo")
+              }
+              next()
+            })
 
           storageTrie.put(key, val, cb3)
         }, cb2)

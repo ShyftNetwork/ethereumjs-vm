@@ -10,6 +10,7 @@ var async = require('async')
 var VM = require('./../../index.js')
 var Account = require('ethereumjs-account')
 var Transaction = require('ethereumjs-tx')
+// var Trie = require('../../lib/recastTrie.js')
 var Trie = require('merkle-patricia-tree')
 var rlp = require('rlp')
 var utils = require('ethereumjs-util')
@@ -55,6 +56,17 @@ function setup (cb) {
   //      strings need to be in hex.
   account.balance = '0xf00000000000000001'
 
+
+  // // @note: recast component
+  // stateTrie.putRecast("sidentity_option", "yo", function(err) {
+  //   if (err !== null) {
+  //     console.log("put sidentity_opt1 :: (err) :: " + err)
+  //   } else {
+  //     console.log("put sidentity_opt1 :: complete :: yo")
+  //   }
+  // })
+
+
   // store in the trie
   stateTrie.put(address, account.serialize(), cb)
 }
@@ -95,6 +107,16 @@ function checkResults (cb) {
   stateTrie.get(createdAddress, function (err, val) {
     var account = new Account(val)
 
+    // // @note: recast component
+    // account.stateRoot.putRecast("sidentity_option", "yo", function(err) {
+    //   if (err !== null) {
+    //     console.log("put sidentity_opt1 :: (err) :: " + err)
+    //   } else {
+    //     console.log("put sidentity_opt1 :: complete :: yo")
+    //   }
+    //   next()
+    // })
+    //
     storageRoot = account.stateRoot // used later! :)
     console.log('------results------')
     console.log('nonce: ' + account.nonce.toString('hex'))
@@ -119,6 +141,16 @@ function readStorage (cb) {
   // Since we are using a copy we won't change the
   // root of `stateTrie`
   storageTrie.root = storageRoot
+
+  // // @note: recast component
+  // storageTrie.put("sidentity_option", "yo", function(err) {
+  //   if (err !== null) {
+  //     console.log("put sidentity_opt1 :: (err) :: " + err)
+  //   } else {
+  //     console.log("put sidentity_opt1 :: complete :: yo")
+  //   }
+  // })
+
 
   var stream = storageTrie.createReadStream()
 
