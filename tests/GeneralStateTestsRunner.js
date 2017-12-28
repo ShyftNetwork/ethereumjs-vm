@@ -101,7 +101,11 @@ function runTestCase (options, testData, t, cb) {
       if (testData.postStateRoot.substr(0, 2) === '0x') {
         testData.postStateRoot = testData.postStateRoot.substr(2)
       }
-      t.equal(state.root.toString('hex'), testData.postStateRoot, 'the state roots should match')
+      if (state.root.toString('hex') !== testData.postStateRoot) {
+        console.log("state roots don't match :: " + state.root.toString('hex') + " :: " + testData.postStateRoot)
+        console.log(".. continuing")
+      }
+      t.equal(state.root.toString('hex'), testData.postStateRoot, 'the state roots should match :: ' + state.root.toString('hex') + " :: " + testData.postStateRoot)
 
       if (state.root.toString('hex') !== testData.postStateRoot.toString('hex')) {
         // since General State Tests, postState keys are no longer included in
@@ -117,6 +121,7 @@ function runTestCase (options, testData, t, cb) {
 
 module.exports = function runStateTest (options, testData, t, cb) {
   const testCases = parseTestCases(options.forkConfig, testData, options.data, options.gasLimit, options.value)
+  console.log("test cases :: " + JSON.stringify(testCases))
   async.eachSeries(testCases,
     (testCase, done) => runTestCase(options, testCase, t, done),
     cb)
