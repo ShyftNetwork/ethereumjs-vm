@@ -30,6 +30,7 @@
     "memdown": "^1.1.0",
     "minimist": "^1.1.1",
     "standard": "^10.0.0",
+    "tap-spec": "^4.1.1",
     "tape": "4.6.3"
   },
   "browserify": {
@@ -46,14 +47,14 @@
   },
   "scripts": {
     "testVM": "node ./tests/tester -v",
-    "testState": "node ./tests/tester -s",
+    "testState": "node ./tests/tester -s | tap-spec",
     "testBlockchain": "node --stack-size=1500 ./tests/tester -b --excludeDir='GeneralStateTests'",
     "testBlockchainGeneralStateTests": "node --stack-size=1500 ./tests/tester -b --dir='GeneralStateTests'",
     "testBlockchainBlockGasLimit": "node --stack-size=1500 ./tests/tester -b --dir='bcBlockGasLimitTest'",
     "testBlockchainValid": "node --stack-size=1500 ./tests/tester -b --dir='bcValidBlockTest'",
     "testBlockchainTotalDifficulty": "node --stack-size=1500 ./tests/tester -b --dir='bcTotalDifficultyTest'",
     "lint": "standard",
-    "test": "node ./tests/tester -a",
+    "test": "node ./tests/tester -a | tap-spec",
     "coverage": "istanbul cover ./tests/tester.js -- -s",
     "coveralls": "npm run coverage && coveralls <coverage/lcov.info"
   },
