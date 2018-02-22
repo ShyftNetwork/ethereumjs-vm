@@ -199,7 +199,7 @@ function runTests (name, runnerArgs, cb) {
   runnerArgs.gasLimit = argv.gas
   runnerArgs.value = argv.value
 
-  runnerArgs.vmtrace = true; // for VMTests
+  //runnerArgs.vmtrace = true; // for VMTests
 
   if (argv.customStateTest) {
     const stateTestRunner = require('./GeneralStateTestsRunner.js')
@@ -218,9 +218,9 @@ function runTests (name, runnerArgs, cb) {
     })
   } else if (argv.customVMTest) {
     const vmTestRunner = require('./VMTestsRunner.js')
-    let fileName = argv.customVMTest
+    var fileName = argv.customVMTest
     tape(name, t => {
-      t.comment('Custom vm test invoked')
+      t.comment('Custom VM test invoked')
       testing.getTestFromSource(fileName, (err, test) => {
         if(err) {
           return t.fail(err)

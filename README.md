@@ -281,6 +281,16 @@ test docs), provided by the index of the array element in the test ``transaction
 Run a state test from a specified source file not under the ``tests`` directory:
 `node ./tests/tester -s --customStateTest='{path_to_file}'`
 
+#### Local VM Tests
+
+Currently the official ethereum VM tests are disabled due to issues with Frontier gas costs. 
+
+You can run individual local tests with:
+
+`node tests/tester -v --customVMTest='{path_to_file}'`
+
+Local VM tests currently support the `--jsontrace` flag described below.
+
 #### Skipping Tests
 
 There are three types of skip lists (``BROKEN``, ``PERMANENT`` and ``SLOW``) which
