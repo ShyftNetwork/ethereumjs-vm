@@ -31,7 +31,7 @@ module.exports = function runVMTest (options, testData, t, cb) {
       let block = testUtil.makeBlockFromEnv(testData.env)
       let vm = new VM({state: state})
       let runCodeData = testUtil.makeRunCodeData(testData.exec, account, block)
-      if (options.vmtrace) {
+      if (options.jsontrace) {
         vm.on('step', (op) => {
           /*console.log(`(stack before: ${op.stack.length} items)`)
           op.stack.forEach((item, i) => {
