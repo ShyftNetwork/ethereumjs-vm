@@ -198,7 +198,7 @@ function runTests (name, runnerArgs, cb) {
   runnerArgs.gasLimit = argv.gas
   runnerArgs.value = argv.value
 
-  // runnerArgs.vmtrace = true; // for VMTests
+  //runnerArgs.vmtrace = true; // for VMTests
 
   if (argv.customStateTest) {
     const stateTestRunner = require('./GeneralStateTestsRunner.js')
@@ -215,6 +215,23 @@ function runTests (name, runnerArgs, cb) {
         })
       })
     })
+  } else if (argv.customVMTest) {
+    const vmTestRunner = require('./VMTestsRunner.js')
+    var fileName = argv.customVMTest
+    tape(name, t => {
+      t.comment('Custom VM test invoked')
+      testing.getTestFromSource(fileName, (err, test) => {
+        if(err) {
+          return t.fail(err)
+        }
+        t.comment(`file: ${fileName} test: ${test.testName}`)
+
+        vmTestRunner(runnerArgs, test, t, () => {
+          t.end()
+        })
+      })
+    })
+
   } else {
     tape(name, t => {
       const runner = require(`./${name}Runner.js`)
@@ -249,7 +266,7 @@ function runAll () {
   require('./cacheTest.js')
   require('./genesishashes.js')
   async.series([
-    // runTests.bind(this, 'VMTests', {}), // VM tests disabled since we don't support Frontier gas costs
+    //runTests.bind(this, 'VMTests', {}), // VM tests disabled since we don't support Frontier gas costs
     runTests.bind(this, 'GeneralStateTests', {}),
     runTests.bind(this, 'BlockchainTests', {})
   ])
