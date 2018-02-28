@@ -213,7 +213,12 @@ function runTests (name, runnerArgs, cb) {
         t.comment(`file: ${fileName} test: ${test.testName}`)
         stateTestRunner(runnerArgs, test, t, () => {
           if(err){
-            t.fail(err)
+            if(err.message){
+              t.fail(err.stack)
+            }
+            else{
+              t.fail(err.error)
+            }
           }
           t.end()
         })
@@ -232,7 +237,12 @@ function runTests (name, runnerArgs, cb) {
 
         vmTestRunner(runnerArgs, test, t, (err) => {
           if(err) {
-            t.fail(err.error)
+            if(err.message){
+              t.fail(err.stack)
+            }
+            else{
+              t.fail(err.error)
+            }
           }
           t.end()
         })
