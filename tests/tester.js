@@ -212,6 +212,9 @@ function runTests (name, runnerArgs, cb) {
 
         t.comment(`file: ${fileName} test: ${test.testName}`)
         stateTestRunner(runnerArgs, test, t, () => {
+          if(err){
+            t.fail(err)
+          }
           t.end()
         })
       })
@@ -227,7 +230,10 @@ function runTests (name, runnerArgs, cb) {
         }
         t.comment(`file: ${fileName} test: ${test.testName}`)
 
-        vmTestRunner(runnerArgs, test, t, () => {
+        vmTestRunner(runnerArgs, test, t, (err) => {
+          if(err) {
+            t.fail(err.error)
+          }
           t.end()
         })
       })
