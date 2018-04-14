@@ -60,6 +60,7 @@ Creates a new VM object
   - `state` - A merkle-patricia-tree instance for the state tree (ignored if `stateManager` is passed)
   - `blockchain` - A blockchain object for storing/retrieving blocks (ignored if `stateManager` is passed)
   - `activatePrecompiles` - Create entries in the state tree for the precompiled contracts
+  - `allowUnlimitedContractSize` - Allows unlimited contract sizes while debugging. By setting this to `true`, the check for contract size limit of 2KB (see [EIP-170](https://git.io/vxZkK)) is bypassed. (default: `false`; **ONLY** set to `true` during debugging).
 
 ### `VM` methods
 
@@ -87,7 +88,8 @@ Process a transaction.
 - `opts.block` - The block to which the `tx` belongs. If omitted a blank block will be used.
 - `cb` - The callback. It is given two arguments, an `error` string containing an error that may have happened or `null`, and a `results` object with the following properties:
   - `amountSpent` - the amount of ether used by this transaction as a `bignum`
-  - `gasUsed` - the amount of gas used by the transaction
+  - `gasUsed` - the amount of gas as a `bignum` used by the transaction
+  - `gasRefund` - the amount of gas as a `bignum` that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`)
   - `vm` - contains the results from running the code, if any, as described in [`vm.runCode(params, cb)`](#vmruncodeopts-cb)
 
 --------------------------------------------------------
@@ -106,7 +108,7 @@ Runs EVM code
 - `cb` - The callback. It is given two arguments, an `error` string containing an error that may have happened or `null` and a `results` object with the following properties
   - `gas` - the amount of gas left as a `bignum`
   - `gasUsed` - the amount of gas as a `bignum` the code used to run.
-  - `gasRefund` - a `Bignum` containing the amount of gas to refund from deleting storage values
+  - `gasRefund` - a `bignum` containing the amount of gas to refund from deleting storage values
   - `selfdestruct` - an `Object` with keys for accounts that have selfdestructed and values for balance transfer recipient accounts.
   - `logs` - an `Array` of logs that the contract emitted.
   - `exception` - `0` if the contract encountered an exception, `1` otherwise.
@@ -221,6 +223,10 @@ Running the State tests:
 Running the Blockchain tests:
 
 `node ./tests/tester -b`
+
+State tests and Blockchain tests can also be run against the ``dist`` folder (default: ``lib``):
+  
+`node ./tests/tester -b --dist`
 
 State tests run significantly faster than Blockchain tests, so it is often a good choice to start fixing State tests.
 

@@ -67,3 +67,6 @@ package-lock.json
 
 .nyc_output/
 .idea/
+# Build folder
+dist
+
