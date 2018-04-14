@@ -1,7 +1,7 @@
 {
-  "name": "ethereumjs-vm",
-  "version": "2.3.4",
-  "description": "An Ethereum VM implementation",
+  "name": "@shyftnetwork/shyft_ethereumjs-vm",
+  "version": "2.3.10",
+  "description": "Shyft's Ethereum VM implementation",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethereumjs/ethereumjs-vm.git"
+    "url": "git+https://github.com/shyftnetwork/shyft_ethereumjs-vm.git"
   },
   "keywords": [
     "ethereum",
@@ -48,7 +48,7 @@
     "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.0",
     "ethereumjs-blockchain": "~2.1.0",
-    "ethereumjs-testing": "https://github.com/ethereumjs/ethereumjs-testing",
+    "ethereumjs-testing": "https://github.com/shyftnetwork/shyft_ethereumjs-testing",
     "ethereumjs-tx": "1.3.3",
     "istanbul": "^0.4.5",
     "level": "^1.4.0",
@@ -60,15 +60,16 @@
     "tap-spec": "^4.1.1",
     "tape": "4.6.3"
   },
-  "author": "mjbecze <mjbecze@gmail.com>",
+  "author": "ansermino <david@shyft.network>",
   "contributors": [
+	  "mjbecze <mjbecze@gmail.com>",
     "Alex Beregszaszi <alex@rtfs.hu>"
   ],
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/ethereumjs/ethereumjs-vm/issues"
+    "url": "https://github.com/shyftnetwork/shyft_ethereumjs-vm/issues"
   },
-  "homepage": "https://github.com/ethereumjs/ethereumjs-vm",
+  "homepage": "https://github.com/shyftnetwork/shyft_ethereumjs-vm",
   "standard": {
     "ignore": [
       "dist/**",
