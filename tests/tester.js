@@ -199,7 +199,7 @@ function runTests (name, runnerArgs, cb) {
   runnerArgs.gasLimit = argv.gas
   runnerArgs.value = argv.value
 
-  //runnerArgs.vmtrace = true; // for VMTests
+  // runnerArgs.vmtrace = true; // for VMTests
 
   if (argv.customStateTest) {
     const stateTestRunner = require('./GeneralStateTestsRunner.js')
@@ -212,11 +212,10 @@ function runTests (name, runnerArgs, cb) {
 
         t.comment(`file: ${fileName} test: ${test.testName}`)
         stateTestRunner(runnerArgs, test, t, () => {
-          if(err){
-            if(err.message){
+          if (err) {
+            if (err.message) {
               t.fail(err.stack)
-            }
-            else{
+            } else {
               t.fail(err.error)
             }
           }
@@ -230,17 +229,16 @@ function runTests (name, runnerArgs, cb) {
     tape(name, t => {
       t.comment('Custom VM test invoked')
       testing.getTestFromSource(fileName, (err, test) => {
-        if(err) {
+        if (err) {
           return t.fail(err)
         }
         t.comment(`file: ${fileName} test: ${test.testName}`)
 
         vmTestRunner(runnerArgs, test, t, (err) => {
-          if(err) {
-            if(err.message){
+          if (err) {
+            if (err.message) {
               t.fail(err.stack)
-            }
-            else{
+            } else {
               t.fail(err.error)
             }
           }
@@ -248,7 +246,6 @@ function runTests (name, runnerArgs, cb) {
         })
       })
     })
-
   } else {
     tape(name, t => {
       const runner = require(`./${name}Runner.js`)
@@ -284,7 +281,7 @@ function runAll () {
   require('./bloomTest.js')
   require('./genesishashes.js')
   async.series([
-    //runTests.bind(this, 'VMTests', {}), // VM tests disabled since we don't support Frontier gas costs
+    // runTests.bind(this, 'VMTests', {}), // VM tests disabled since we don't support Frontier gas costs
     runTests.bind(this, 'GeneralStateTests', {}),
     runTests.bind(this, 'BlockchainTests', {})
   ])
