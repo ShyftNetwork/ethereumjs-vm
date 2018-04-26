@@ -124,8 +124,8 @@ module.exports = function runStateTest (options, testData, t, cb) {
   try {
     const testCases = parseTestCases(options.forkConfig, testData, options.data, options.gasLimit, options.value)
     async.eachSeries(testCases,
-                    (testCase, done) => runTestCase(options, testCase, t, done),
-                    cb)
+      (testCase, done) => runTestCase(options, testCase, t, done),
+      cb)
   } catch (e) {
     t.fail('error running test case for fork: ' + options.forkConfig)
     console.log('error:', e)
