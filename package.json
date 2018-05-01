@@ -32,6 +32,7 @@
     "VM"
   ],
   "dependencies": {
+    "@shyftnetwork/shyft_ethereumjs-block": "^1.7.1",
     "async": "^2.1.2",
     "async-eventemitter": "^0.2.2",
     "ethereumjs-account": "^2.0.3",
@@ -57,7 +58,6 @@
     "levelup": "^1.3.2",
     "memdown": "^1.1.0",
     "minimist": "^1.1.1",
-    "standard": "^10.0.0",
     "tape": "4.6.3"
   },
   "author": "ansermino <david@shyft.network>",
