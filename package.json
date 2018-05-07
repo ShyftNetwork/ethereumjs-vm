@@ -8,7 +8,7 @@
     "async": "^2.1.2",
     "async-eventemitter": "^0.2.2",
     "ethereum-common": "0.2.0",
-    "ethereumjs-account": "^2.0.4",
+    "@shyftnetwork/shyft_ethereumjs-account": "^2.0.4",
     "ethereumjs-util": "4.5.0",
     "fake-merkle-patricia-tree": "^1.0.1",
     "functional-red-black-tree": "^1.0.1",
