@@ -6693,7 +6693,7 @@ Bloom.prototype.or = function (bloom) {
 
 var Buffer = require('safe-buffer').Buffer;
 var Tree = require('functional-red-black-tree');
-var Account = require('ethereumjs-account');
+var Account = require('@shyftnetwork/shyft_ethereumjs-account');
 var async = require('async');
 
 var Cache = module.exports = function (trie) {
@@ -6844,7 +6844,7 @@ Cache.prototype._update = function (key, val, modified, exists) {
   }
 };
 
-},{"async":63,"ethereumjs-account":112,"functional-red-black-tree":120,"safe-buffer":238}],38:[function(require,module,exports){
+},{"async":63,"@shyftnetwork/shyft_ethereumjs-account":112,"functional-red-black-tree":120,"safe-buffer":238}],38:[function(require,module,exports){
 'use strict';
 
 exports.ERROR = {
@@ -6882,7 +6882,7 @@ var Buffer = require('safe-buffer').Buffer;
 var util = require('util');
 var ethUtil = require('ethereumjs-util');
 var StateManager = require('./stateManager.js');
-var Account = require('ethereumjs-account');
+var Account = require('@shyftnetwork/shyft_ethereumjs-account');
 var AsyncEventEmitter = require('async-eventemitter');
 var BN = ethUtil.BN;
 
@@ -6896,7 +6896,7 @@ module.exports = VM;
 
 VM.deps = {
   ethUtil: ethUtil,
-  Account: require('ethereumjs-account'),
+  Account: require('@shyftnetwork/shyft_ethereumjs-account'),
   Trie: require('merkle-patricia-tree'),
   rlp: require('ethereumjs-util').rlp
 
@@ -6964,7 +6964,7 @@ VM.prototype.populateCache = function (addresses, cb) {
   this.stateManager.warmCache(addresses, cb);
 };
 
-},{"./precompiled/01-ecrecover.js":44,"./precompiled/02-sha256.js":45,"./precompiled/03-ripemd160.js":46,"./precompiled/04-identity.js":47,"./runBlock.js":48,"./runBlockchain.js":49,"./runCall.js":50,"./runCode.js":51,"./runJit.js":52,"./runTx.js":53,"./stateManager.js":54,"async-eventemitter":60,"ethereumjs-account":112,"ethereumjs-util":118,"merkle-patricia-tree":212,"safe-buffer":238,"util":33}],41:[function(require,module,exports){
+},{"./precompiled/01-ecrecover.js":44,"./precompiled/02-sha256.js":45,"./precompiled/03-ripemd160.js":46,"./precompiled/04-identity.js":47,"./runBlock.js":48,"./runBlockchain.js":49,"./runCall.js":50,"./runCode.js":51,"./runJit.js":52,"./runTx.js":53,"./stateManager.js":54,"async-eventemitter":60,"@shyftnetwork/shyft_ethereumjs-account":112,"ethereumjs-util":118,"merkle-patricia-tree":212,"safe-buffer":238,"util":33}],41:[function(require,module,exports){
 'use strict';
 
 var utils = require('ethereumjs-util');
@@ -9250,7 +9250,7 @@ var Buffer = require('safe-buffer').Buffer;
 var Trie = require('merkle-patricia-tree/secure.js');
 var common = require('ethereum-common');
 var async = require('async');
-var Account = require('ethereumjs-account');
+var Account = require('@shyftnetwork/shyft_ethereumjs-account');
 var fakeBlockchain = require('./fakeBlockChain.js');
 var Cache = require('./cache.js');
 var utils = require('ethereumjs-util');
@@ -9575,7 +9575,7 @@ proto.accountIsEmpty = function (address, cb) {
   });
 };
 
-},{"./cache.js":37,"./fakeBlockChain.js":39,"async":63,"ethereum-common":110,"ethereumjs-account":112,"ethereumjs-util":118,"merkle-patricia-tree/secure.js":216,"safe-buffer":238}],55:[function(require,module,exports){
+},{"./cache.js":37,"./fakeBlockChain.js":39,"async":63,"ethereum-common":110,"@shyftnetwork/shyft_ethereumjs-account":112,"ethereumjs-util":118,"merkle-patricia-tree/secure.js":216,"safe-buffer":238}],55:[function(require,module,exports){
 (function (process){
 /* Copyright (c) 2013 Rod Vagg, MIT License */
 
