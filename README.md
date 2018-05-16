@@ -291,4 +291,4 @@ An extremely rich and powerful toolbox is the [evmlab](https://github.com/holima
 
 
 # LICENSE
-[MPL-2.0](https://www.mozilla.org/MPL/2.0/)
+ShyftNetwork
