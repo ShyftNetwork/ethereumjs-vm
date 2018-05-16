@@ -291,4 +291,4 @@ An extremely rich and powerful toolbox is the [evmlab](https://github.com/holima
 
 
 # LICENSE
-Shyft-Network
+ShyftNetwork
