@@ -2,6 +2,30 @@ sudo: required
 language: node_js
 node_js:
 - "9.11.1"
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+matrix:
+  - CXX=g++-4.8 TEST_SUITE=testState
+matrix:
+  fast_finish: true
+  include:
+  - os: linux
+    node_js: '6'
+    env: CXX=g++-4.8 TEST_SUITE=lint
+  - os: linux
+    node_js: '6'
+    env: CXX=g++-4.8 TEST_SUITE=testState
+  - os: linux
+    node_js: '6'
+    env: CXX=g++-4.8 TEST_SUITE=testBlockchainBlockGasLimit
+  - os: linux
+    node_js: '6'
+    env: CXX=g++-4.8 TEST_SUITE=testBlockchainTotalDifficulty
+## script: npm run $TEST_SUITE
 env:
   global:
     secure: O/LW5ERuTWkUsCBpSCLu+yY7irQnEHsYTNh46x/Rp5dIWThPV7xJMeJjGVno1pN/KbFYpLY2w0mRe1WWr1HH322+7uu8Smvb509hGFcybIE1i2I+vy295+CMc/DrhpgeBSsKziNV0h+sv0x0fjSuILC0CWUB3SQUnkviCPWmfj4SbxLqYVNgvx/W8xjnnqSSBGTcOwZiwioH1XlFuM95gBRjTUnYDoyOh7/Lwo841qWXh6/j7rEFLXDaYD6FpjI3gpRx+jsyc4Nl85cGzBGc7Ecxx0WAgZDfgTmDqpm179io5lqPI8CXvDPuAU8tMNvl97q+1I0Tc0cGIHOnaBhhYueGH/+5QmU/MJdZ5+4H2oawCgbp6qYjO2ZNQYHwYWImOC7ipM81amAz5qsWh2j8G8gRyvD+JwdDD1kUxZ2tAEsOOoTakxtiOqf6e+dxkeMXotn5NSIMl4zJmFgjwyyc+Zr+nu6c0c/YgHqhiTEKJlooPr2KIP0zGceuQtEMsx0J6aAxZVYuulNbg/50o/2ZjU8ruAHk4EbPdK/WbfxtOJwvTbUw4JmV6bCrVKlxPyIxVlZ8MwFSZreUNqaLs0nvIv1nWPKvF9CKzr7XUbT0RkfkhXO+UkglIVBAPZMZKxMyB0FURhF2mHXP+BYxR0ZFRwPK3rMQuewhPJvMB0MIyS8=
