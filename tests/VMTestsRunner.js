@@ -31,14 +31,31 @@ module.exports = function runVMTest (options, testData, t, cb) {
       let block = testUtil.makeBlockFromEnv(testData.env)
       let vm = new VM({state: state})
       let runCodeData = testUtil.makeRunCodeData(testData.exec, account, block)
-      if (options.vmtrace) {
+      if (options.jsontrace) {
         vm.on('step', (op) => {
-          console.log(`(stack before: ${op.stack.length} items)`)
+          /* console.log(`(stack before: ${op.stack.length} items)`)
           op.stack.forEach((item, i) => {
             console.log(`${i}: ${item.toString('hex')}`)
           })
           const string = `${op.opcode.name} (gas left: ${op.gasLeft.toString()})`
-          console.log(string)
+          console.log(string) */
+
+          let hexStack = []
+          hexStack = op.stack.map(item => {
+            return '0x' + new BN(item).toString(16, 0)
+          })
+
+          var opTrace = {
+            'pc': op.pc,
+            'op': op.opcode.opcode,
+            'gas': '0x' + op.gasLeft.toString('hex'),
+            'gasCost': '0x' + op.opcode.fee.toString(16),
+            'stack': hexStack,
+            'depth': op.depth,
+            'opName': op.opcode.name
+          }
+
+          t.comment(JSON.stringify(opTrace))
         })
       }
 

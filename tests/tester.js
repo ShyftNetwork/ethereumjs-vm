@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const argv = require('minimist')(process.argv.slice(2))
 const async = require('async')
 const tape = require('tape')
@@ -54,7 +56,8 @@ const skipSlow = [
   'static_Call1MB1024Calldepth', // slow
   'static_Callcode50000', // slow
   'static_Return50000', // slow
-  'static_Return50000_2' // slow
+  'static_Return50000_2', // slow
+  'QuadraticComplexitySolidity_CallDataCopy'
 ]
 
 /*
@@ -210,6 +213,36 @@ function runTests (name, runnerArgs, cb) {
 
         t.comment(`file: ${fileName} test: ${test.testName}`)
         stateTestRunner(runnerArgs, test, t, () => {
+          if (err) {
+            if (err.message) {
+              t.fail(err.stack)
+            } else {
+              t.fail(err.error)
+            }
+          }
+          t.end()
+        })
+      })
+    })
+  } else if (argv.customVMTest) {
+    const vmTestRunner = require('./VMTestsRunner.js')
+    var fileName = argv.customVMTest
+    tape(name, t => {
+      t.comment('Custom VM test invoked')
+      testing.getTestFromSource(fileName, (err, test) => {
+        if (err) {
+          return t.fail(err)
+        }
+        t.comment(`file: ${fileName} test: ${test.testName}`)
+
+        vmTestRunner(runnerArgs, test, t, (err) => {
+          if (err) {
+            if (err.message) {
+              t.fail(err.stack)
+            } else {
+              t.fail(err.error)
+            }
+          }
           t.end()
         })
       })

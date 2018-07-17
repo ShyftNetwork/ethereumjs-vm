@@ -63,7 +63,12 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 package-lock.json
+.nyc_output
 
+.nyc_output/
+.idea/
+# Build folder
+dist
 
 
 \.idea/
