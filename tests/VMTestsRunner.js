@@ -71,7 +71,7 @@ module.exports = function runVMTest (options, testData, t, cb) {
         console.log(results.runState.gasLeft.toString())
       }
 
-      if (testData.out.slice(2)) {
+      if (testData.out && testData.out.slice(2)) {
         t.equal(results.return.toString('hex'), testData.out.slice(2), 'valid return value')
       }
 
