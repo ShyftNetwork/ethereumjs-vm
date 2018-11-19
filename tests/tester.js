@@ -3,7 +3,7 @@
 const argv = require('minimist')(process.argv.slice(2))
 const async = require('async')
 const tape = require('tape')
-const testing = require('ethereumjs-testing')
+const testing = require('@shyftnetwork/shyft_ethereumjs-testing')
 const FORK_CONFIG = argv.fork || 'Byzantium'
 // tests which should be fixed
 const skipBroken = [
