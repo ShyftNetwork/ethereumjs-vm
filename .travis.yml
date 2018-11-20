@@ -31,10 +31,7 @@ matrix:
   include:
     - os: linux
       node_js: "8"
-      env: CXX=g++-4.8 TEST_SUITE=lint
-    - os: linux
-      node_js: "8"
-      env: CXX=g++-4.8 TEST_SUITE=coveralls
+      env: CXX=g++-4.8 TEST_SUITE=lintgit
     - os: linux
       node_js: "8"
       env: CXX=g++-4.8 TEST_SUITE=testState
