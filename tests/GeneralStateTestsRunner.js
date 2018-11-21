@@ -128,8 +128,8 @@ module.exports = function runStateTest (options, testData, t, cb) {
     const testCases = parseTestCases(options.forkConfig, testData, options.data, options.gasLimit, options.value)
     if (testCases.length > 0) {
       async.eachSeries(testCases,
-                      (testCase, done) => runTestCase(options, testCase, t, done),
-                      cb)
+        (testCase, done) => runTestCase(options, testCase, t, done),
+        cb)
     } else {
       t.comment(`No ${options.forkConfig} post state defined, skip test`)
       cb()

@@ -29,7 +29,7 @@ module.exports = function runVMTest (options, testData, t, cb) {
     },
     function (done) {
       let block = testUtil.makeBlockFromEnv(testData.env)
-      let vm = new VM({state: state})
+      let vm = new VM({ state: state })
       let runCodeData = testUtil.makeRunCodeData(testData.exec, account, block)
       if (options.jsontrace) {
         vm.on('step', (op) => {
@@ -71,7 +71,7 @@ module.exports = function runVMTest (options, testData, t, cb) {
         console.log(results.runState.gasLeft.toString())
       }
 
-      if (testData.out.slice(2)) {
+      if (testData.out && testData.out.slice(2)) {
         t.equal(results.return.toString('hex'), testData.out.slice(2), 'valid return value')
       }
 
