@@ -1,7 +1,7 @@
 {
   "name": "@shyftnetwork/shyft_ethereumjs-vm",
   "version": "2.3.31",
-  "description": "An Ethereum VM implementation",
+  "description": "Shyft's Ethereum VM implementation",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -10,7 +10,8 @@
     "coverage": "istanbul cover ./tests/tester.js -- -s",
     "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
     "testVM": "node ./tests/tester -v",
-    "testState": "npm run build:dist && node ./tests/tester -s --dist",
+    "testStateByzantium": "npm run build:dist && node ./tests/tester -s --fork='Byzantium' --dist",
+    "testStateConstantinople": "npm run build:dist && node ./tests/tester -s --fork='Constantinople' --dist",
     "testBuildIntegrity": "npm run build:dist && node ./tests/tester -s --dist --test='stackOverflow'",
     "testBlockchain": "npm run build:dist && node --stack-size=1500 ./tests/tester -b --dist --excludeDir='GeneralStateTests'",
     "testBlockchainGeneralStateTests": "npm run build:dist && node --stack-size=1500 ./tests/tester -b --dist --dir='GeneralStateTests'",
@@ -24,26 +25,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethereumjs/ethereumjs-vm.git"
+    "url": "git+https://github.com/shyftnetwork/shyft_ethereumjs-vm.git"
   },
   "keywords": [
     "ethereum",
     "VM"
   ],
   "dependencies": {
-    "@shyftnetwork/shyft_ethereumjs-block": "^1.7.1",
+    "ethereumjs-block": "~1.7.0",
     "async": "^2.1.2",
     "async-eventemitter": "^0.2.2",
-    "ethereum-common": "0.2.0",
-    "@shyftnetwork/shyft_ethereumjs-account": "^2.0.4",
-    "ethereumjs-util": "4.5.0",
+    "ethereumjs-account": "^2.0.3",
+    "ethereumjs-common": "~0.4.0",
+    "ethereumjs-util": "^5.2.0",
     "fake-merkle-patricia-tree": "^1.0.1",
     "functional-red-black-tree": "^1.0.1",
     "merkle-patricia-tree": "^2.1.2",
-    "rustbn.js": "~0.1.1",
-    "safe-buffer": "^5.1.1",
-    "shorter": "^0.2.1",
-    "standard": "^11.0.1"
+    "rustbn.js": "~0.2.0",
+    "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -60,23 +59,14 @@
     "minimist": "^1.1.1",
     "tape": "4.6.3"
   },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
-  },
-  "author": "cf <chris@shyft.network>",
-  "contributors": [],
+  "author": "ansermino <david@shyft.network>",
+  "contributors": [
+    "mjbecze <mjbecze@gmail.com>",
+    "Alex Beregszaszi <alex@rtfs.hu>"
+  ],
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/shyftnetwork/shyft_network/shyft_ethereumjs-vm/issues"
+    "url": "https://github.com/shyftnetwork/shyft_ethereumjs-vm/issues"
   },
   "homepage": "https://github.com/shyftnetwork/shyft_ethereumjs-vm",
   "standard": {

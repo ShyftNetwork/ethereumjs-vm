@@ -37,17 +37,17 @@ tape('test the cache api', function (t) {
       code: Buffer.from('6060604052606a8060116000396000f30060606040526000357c01000000000000000000000000000000000000000000000000000000009004806329e99f07146037576035565b005b6046600480359060200150605c565b6040518082815260200191505060405180910390f35b60008190506065565b91905056', 'hex')
     }
 
-    var vm = new VM(new Trie())
+    var vm = new VM({state: new Trie()})
 
     async.series([
       createAccount,
       runCode,
       runTx,
       function (cb) {
-        vm.trie.get(account2.address, function (err, val) {
+        vm.stateManager.trie.get(account2.address, function (err, val) {
           t.assert(!err)
           var a = new Account(val)
-          a.getCode(vm.trie, function (err, v) {
+          a.getCode(vm.stateManager.trie, function (err, v) {
             t.assert(!err)
             t.assert(v.toString('hex') === '60606040526008565b00')
             cb()
@@ -62,7 +62,7 @@ tape('test the cache api', function (t) {
     function createAccount (cb) {
       var account = new Account()
       account.balance = '0xf00000000000000001'
-      vm.trie.put(Buffer.from(account1.address, 'hex'), account.serialize(), cb)
+      vm.stateManager.trie.put(Buffer.from(account1.address, 'hex'), account.serialize(), cb)
     }
 
     function runCode (cb) {
@@ -77,9 +77,9 @@ tape('test the cache api', function (t) {
         caller: account1.address
       }, function (err, result) {
         if (err) return cb(err)
-        account.setCode(vm.trie, result.return, function (err) {
+        account.setCode(vm.stateManager.trie, result.return, function (err) {
           if (err) cb(err)
-          else vm.trie.put(account2.address, account.serialize(), cb)
+          else vm.stateManager.trie.put(account2.address, account.serialize(), cb)
         })
       })
     }
