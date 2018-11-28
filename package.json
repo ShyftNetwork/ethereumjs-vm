@@ -32,11 +32,10 @@
     "VM"
   ],
   "dependencies": {
-    "@shyftnetwork/shyft_ethereumjs-block": "^1.7.1",
+    "ethereumjs-block": "~1.7.0",
     "async": "^2.1.2",
     "async-eventemitter": "^0.2.2",
     "ethereumjs-account": "^2.0.3",
-    "ethereumjs-block": "~1.7.0",
     "ethereumjs-common": "~0.4.0",
     "ethereumjs-util": "^5.2.0",
     "fake-merkle-patricia-tree": "^1.0.1",
