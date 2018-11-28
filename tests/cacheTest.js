@@ -1,7 +1,7 @@
 const tape = require('tape')
 const VM = require('../')
 var async = require('async')
-var Account = require('@shyftnetwork/shyft_ethereumjs-account')
+var Account = require('ethereumjs-account')
 var Transaction = require('ethereumjs-tx')
 var Trie = require('merkle-patricia-tree')
 var ethUtil = require('ethereumjs-util')
@@ -37,7 +37,7 @@ tape('test the cache api', function (t) {
       code: Buffer.from('6060604052606a8060116000396000f30060606040526000357c01000000000000000000000000000000000000000000000000000000009004806329e99f07146037576035565b005b6046600480359060200150605c565b6040518082815260200191505060405180910390f35b60008190506065565b91905056', 'hex')
     }
 
-    var vm = new VM({state: new Trie()})
+    var vm = new VM({ state: new Trie() })
 
     async.series([
       createAccount,

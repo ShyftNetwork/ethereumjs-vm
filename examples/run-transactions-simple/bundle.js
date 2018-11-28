@@ -6693,7 +6693,7 @@ Bloom.prototype.or = function (bloom) {
 
 var Buffer = require('safe-buffer').Buffer;
 var Tree = require('functional-red-black-tree');
-var Account = require('@shyftnetwork/shyft_ethereumjs-account');
+var Account = require('ethereumjs-account');
 var async = require('async');
 
 var Cache = module.exports = function (trie) {
@@ -6882,7 +6882,7 @@ var Buffer = require('safe-buffer').Buffer;
 var util = require('util');
 var ethUtil = require('ethereumjs-util');
 var StateManager = require('./stateManager.js');
-var Account = require('@shyftnetwork/shyft_ethereumjs-account');
+var Account = require('ethereumjs-account');
 var AsyncEventEmitter = require('async-eventemitter');
 var BN = ethUtil.BN;
 
@@ -6896,7 +6896,7 @@ module.exports = VM;
 
 VM.deps = {
   ethUtil: ethUtil,
-  Account: require('@shyftnetwork/shyft_ethereumjs-account'),
+  Account: require('ethereumjs-account'),
   Trie: require('merkle-patricia-tree'),
   rlp: require('ethereumjs-util').rlp
 
@@ -9250,7 +9250,7 @@ var Buffer = require('safe-buffer').Buffer;
 var Trie = require('merkle-patricia-tree/secure.js');
 var common = require('ethereum-common');
 var async = require('async');
-var Account = require('@shyftnetwork/shyft_ethereumjs-account');
+var Account = require('ethereumjs-account');
 var fakeBlockchain = require('./fakeBlockChain.js');
 var Cache = require('./cache.js');
 var utils = require('ethereumjs-util');
