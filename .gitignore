@@ -65,6 +65,8 @@ node_modules
 package-lock.json
 yarn.lock
 
+.nyc_output/
+.idea/
 # Build folder
 dist
 .idea/
