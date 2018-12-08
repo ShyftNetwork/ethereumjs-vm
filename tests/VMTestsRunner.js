@@ -1,6 +1,6 @@
 const async = require('async')
 const VM = require('../')
-const Account = require('@shyftnetwork/shyft_ethereumjs-account')
+const Account = require('ethereumjs-account')
 const testUtil = require('./util')
 const Trie = require('merkle-patricia-tree/secure')
 const ethUtil = require('ethereumjs-util')

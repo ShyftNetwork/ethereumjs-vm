@@ -1,6 +1,6 @@
 {
   "name": "@shyftnetwork/shyft_ethereumjs-vm",
-  "version": "2.3.31",
+  "version": "2.4.0",
   "description": "Shyft's Ethereum VM implementation",
   "main": "dist/index.js",
   "files": [
